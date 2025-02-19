@@ -17,9 +17,17 @@ import java.util.List;
 public class BookmarkController {
     private final BookmarkService bookmarkService;
 
+    //api/bookmarks?page=2&query=boot
     @GetMapping
 //    public List<Bookmark> getBookmarks(@RequestParam(name = "page", defaultValue = "1") Integer page) {
-    public BookmarksDTO getBookmarks(@RequestParam(name = "page", defaultValue = "1") Integer page) {
-        return bookmarkService.getBookmarks(page);
+    public BookmarksDTO getBookmarks(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                                     @RequestParam(name = "query", defaultValue = "") String query) {
+        /*
+         isBlank() => isEmpty() + trim()
+         */
+        if (query == null || query.isBlank()) {
+            return bookmarkService.getBookmarks(page);
+        }
+        return bookmarkService.searchBookmarks(query, page);
     }
 }
