@@ -30,7 +30,7 @@ public class BookmarkService {
     public BookmarksDTO getBookmarks(Integer page) {
         //JPA의 페이지번호가 0부터 시작하기 때문
         int pageNo = page < 1 ? 0 : page - 1;
-        Pageable pageable = PageRequest.of(pageNo, 10, Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(pageNo, 4, Sort.Direction.DESC, "id");
         //Page<Bookmark> => Page<BookmarkDTO>
 //        Page<BookmarkDTO> bookmarkPage = repository.findAll(pageable)
         //map(Function) Function 의 추상메서드 R apply(T t)
@@ -45,7 +45,7 @@ public class BookmarkService {
     @Transactional(readOnly = true)
     public BookmarksDTO<?> searchBookmarks(String query, Integer page) {
         int pageNo = page < 1 ? 0 : page - 1 ;
-        Pageable pageable = PageRequest.of(pageNo, 10, Sort.Direction.DESC, "createdAt");
+        Pageable pageable = PageRequest.of(pageNo, 4, Sort.Direction.DESC, "createdAt");
         //Page<BookmarkDTO> bookmarkPage = repository.searchBookmarks(query, pageable);
         //Page<BookmarkDTO> bookmarkPage = repository.findByTitleContainsIgnoreCase(query, pageable);
         Page<BookmarkVM> bookmarkPage =
